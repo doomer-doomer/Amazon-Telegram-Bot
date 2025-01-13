@@ -18,6 +18,11 @@ class DataManager:
             'health': 'HEALTH.csv',
             'jwellery': 'JWELLERY.csv',
             'movies': 'MOVIES.csv',
+            'car & bike': 'CAR & BIKE.csv',
+            'industrial & scientific': 'INDUSTRIAL & SCIENTIFIC.csv',
+            'pets': 'PETS.csv',
+            'shoes': 'SHOES.csv',
+            'watches': 'WATCHES.csv',
             # Add other CSV files here
         }
         self.ITEMS_PER_PAGE = 5
