@@ -10,8 +10,8 @@ CSV_FILES = {
     'health': 'HEALTH.csv',
     'jwellery': 'JWELLERY.csv',
     'movies': 'MOVIES.csv',
-    'car & bike': 'CAR & BIKE.csv',
-    'industrial & scientific': 'INDUSTRIAL & SCIENTIFIC.csv',
+    'carbike': 'CAR & BIKE.csv',  # Modified key
+    'industrial': 'INDUSTRIAL & SCINTIFIC.csv',  # Modified key
     'pets': 'PETS.csv',
     'shoes': 'SHOES.csv',
     'watches': 'WATCHES.csv',

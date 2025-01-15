@@ -5,25 +5,25 @@ class DataManager:
     def __init__(self):
         self.categories = defaultdict(dict)
         self.products = defaultdict(dict)
+        # Modified dictionary with command-safe keys
         self.csv_files = {
             'books': 'BOOKS.csv',
             'electronics': 'ELECTRONICS.csv',
             'clothing': 'CLOTHES.csv',
             'beauty': 'BEAUTY.csv',
             'toys': 'TOYS.csv',
-            'books': 'BOOKS.csv',
             'kitchen': 'KITCHEN.csv',
+            'books': 'BOOKS.csv',
             'baby': 'BABY.csv',
             'computer': 'COMPUTER.csv',
             'health': 'HEALTH.csv',
             'jwellery': 'JWELLERY.csv',
             'movies': 'MOVIES.csv',
-            'car & bike': 'CAR & BIKE.csv',
-            'industrial & scientific': 'INDUSTRIAL & SCIENTIFIC.csv',
+            'carbike': 'CAR & BIKE.csv',  # Modified key
+            'industrial': 'INDUSTRIAL & SCINTIFIC.csv',  # Modified key
             'pets': 'PETS.csv',
             'shoes': 'SHOES.csv',
             'watches': 'WATCHES.csv',
-            # Add other CSV files here
         }
         self.ITEMS_PER_PAGE = 5
         self.load_data()
@@ -114,3 +114,11 @@ class DataManager:
             'text': message,
             'link': link
         }
+
+    def get_display_name(self, command_name):
+        """Convert command name to display name"""
+        display_names = {
+            'carbike': 'Car & Bike',
+            'industrial': 'Industrial & Scientific'
+        }
+        return display_names.get(command_name, command_name.title())

@@ -14,9 +14,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     items = list(data_manager.csv_files.keys())
     for i in range(0, len(items), 2):
         row = []
-        row.append(InlineKeyboardButton(items[i].title(), callback_data=f"file_{items[i]}"))
+        display_name = data_manager.get_display_name(items[i])
+        row.append(InlineKeyboardButton(display_name, callback_data=f"file_{items[i]}"))
         if i + 1 < len(items):  # Check if there's a second item for the row
-            row.append(InlineKeyboardButton(items[i+1].title(), callback_data=f"file_{items[i+1]}"))
+            display_name2 = data_manager.get_display_name(items[i+1])
+            row.append(InlineKeyboardButton(display_name2, callback_data=f"file_{items[i+1]}"))
         keyboard.append(row)
     
     # Add back button row
@@ -47,6 +49,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if action == 'file':
         # Show main categories for selected file in 2-column layout
         file_key = data[1]
+        display_name = data_manager.get_display_name(file_key)
         categories = data_manager.get_main_categories(file_key)
         keyboard = []
         
@@ -68,7 +71,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         reply_markup = InlineKeyboardMarkup(keyboard)
         await query.edit_message_text(
-            f"Select a category from {file_key.title()}:",
+            f"Select a category from {display_name}:",
             reply_markup=reply_markup
         )
 
@@ -168,10 +171,12 @@ def main():
     application.add_handler(CommandHandler("mainmenu", command_main_menu))
     application.add_handler(CommandHandler("back", command_back))
     
-    # Add category command handlers
+    # Add category command handlers with clean names
     for category in data_manager.csv_files.keys():
+        # Ensure category name is command-safe
+        clean_category = category.lower().replace('/', '').replace(' ', '')
         application.add_handler(
-            CommandHandler(category, lambda update, context, cat=category: 
+            CommandHandler(clean_category, lambda update, context, cat=category: 
                          show_category(update, context, cat))
         )
     
